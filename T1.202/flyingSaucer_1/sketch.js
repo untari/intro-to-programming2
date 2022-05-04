@@ -14,12 +14,18 @@ function setup()
     flying_saucer = {
         x: 400,
         y: 150,
-        width:520,
+        width:250,
         height: 75,
-        window_width: 0.75,
-        window_height: 0.85,
+        window_width: 0.5,
+        window_height: 1.2,
         base_height: 0.45,
-        num_light: 20
+        num_lights: 20,
+        brightnesses: []
+    }
+
+    //for loop for the brigtnesses
+    for (var i = 0; i < flying_saucer.num_lights; i++){
+        flying_saucer.brightnesses.push((i * 5)%255);
     }
 }
 
@@ -47,8 +53,14 @@ function draw()
     fill(255);
     
     var inc = flying_saucer.width/(10 - 1);
+
     for(var i = 0; i < 10; i++)
     {
+        //add fill
+        fill(flying_saucer.brightnesses[i]);
         ellipse(flying_saucer.x - flying_saucer.width/2 + inc * i, flying_saucer.y, 5);
+        
+        flying_saucer.brightnesses[i] += 1;
+        flying_saucer.brightnesses[i] = flying_saucer.brightnesses[i]%255;
     }
 }
