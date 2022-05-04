@@ -20,7 +20,13 @@ function setup()
         window_height: 1.2,
         base_height: 0.45,
         num_lights: 20,
-        brightnesses: []
+        brightnesses: [],
+
+        //hover function
+        hover: function()
+        {
+            console.log("hover");
+        }
     }
 
     //for loop for the brigtnesses
@@ -46,6 +52,8 @@ function draw()
     arc(flying_saucer.x,flying_saucer.y,flying_saucer.width,flying_saucer.height/2,0,PI);
 
     //adding hover 
+    flying_saucer.hover();
+
     flying_saucer.x += random(-2,2);
     flying_saucer.y += random(-1,1);
     
@@ -63,4 +71,5 @@ function draw()
         flying_saucer.brightnesses[i] += 1;
         flying_saucer.brightnesses[i] = flying_saucer.brightnesses[i]%255;
     }
+
 }
