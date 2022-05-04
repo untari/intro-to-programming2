@@ -25,7 +25,9 @@ function setup()
         //hover function
         hover: function()
         {
-            console.log("hover");
+            //console.log("hover");
+            this.x += random(-2,2);
+            this.y += random(-1,1);
         }
     }
 
@@ -53,9 +55,6 @@ function draw()
 
     //adding hover 
     flying_saucer.hover();
-
-    flying_saucer.x += random(-2,2);
-    flying_saucer.y += random(-1,1);
     
     //add lights to the flying saucerr
     fill(255);
