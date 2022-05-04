@@ -14,8 +14,12 @@ function setup()
     flying_saucer = {
         x: 400,
         y: 150,
-        width: 200,
-        height: 50
+        width:520,
+        height: 75,
+        window_width: 0.75,
+        window_height: 0.85,
+        base_height: 0.45,
+        num_light: 20
     }
 }
 
