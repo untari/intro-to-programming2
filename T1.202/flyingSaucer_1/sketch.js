@@ -28,6 +28,19 @@ function setup()
             //console.log("hover");
             this.x += random(-2,2);
             this.y += random(-1,1);
+        },
+
+        //bean
+        bean: function()
+        {
+            fill(255,255,100,150);
+            beginShape();
+            vertex(this.x - this.width * 0.25,this.y);
+            vertex(this.x + this.width * 0.25,this.y);
+            vertex(this.x + this.width * 0.25, height - 100);
+            vertex(this.x - this.width * 0.35, height - 100);
+            endShape(CLOSE);
+            
         }
     }
 
@@ -45,6 +58,9 @@ function draw()
     fill(0,50,0);
     rect(0,height - 100, width, 100);
     
+    //draw bean
+    flying_saucer.bean();
+
     //draw the flying saucerr
     fill(175,238,238);
     arc(flying_saucer.x,flying_saucer.y,flying_saucer.width/2,flying_saucer.height*2,PI,TWO_PI)
@@ -53,8 +69,10 @@ function draw()
     fill(50);
     arc(flying_saucer.x,flying_saucer.y,flying_saucer.width,flying_saucer.height/2,0,PI);
 
-    //adding hover 
+    //draw hover 
     flying_saucer.hover();
+
+
     
     //add lights to the flying saucerr
     fill(255);
