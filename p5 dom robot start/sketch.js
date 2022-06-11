@@ -1,8 +1,8 @@
 var myRobot;
-var transmitButton;
-var rotationSlider;
-var nameText;
-var colourSelect;
+// var transmitButton;
+// var rotationSlider;
+// var nameText;
+// var colourSelect;
 
 function setup() {
 	// put setup code here
@@ -11,37 +11,14 @@ function setup() {
 
 	angleMode(DEGREES);
 
-	var controlsDiv = select("#robotControls");
-
-	//add dom controls
-	transmitButton = createButton("transmit");
-	transmitButton.parent(controlsDiv);
-
-	rotationSlider = createSlider(0, 360, 0);
-	rotationSlider.parent(controlsDiv);
-
-	nameText = createInput("marvin");
-	nameText.parent(controlsDiv);
-
-	colourSelect = createSelect();
-
-	var colourOptions = ['grey', 'brown', 'red', 'green', 'yellow', 'purple'];
-	for(var i = 0; i < colourOptions.length; i++)
-	{
-		colourSelect.option(colourOptions[i]);
-	}
-
-	colourSelect.parent(controlsDiv);
-
-
 }
 
 function draw() {
 	// put drawing code here
 	background(50);
-	myRobot.colour = colourSelect.selected();
-	myRobot.rotation = rotationSlider.value();
-	myRobot.name = nameText.value();
+	// myRobot.colour = colourSelect.selected();
+	// myRobot.rotation = rotationSlider.value();
+	// myRobot.name = nameText.value();
 	myRobot.drawRobot();
 }
 
@@ -50,6 +27,45 @@ function Robot(colour, transmitting, name, rotation) {
 	this.rotation = rotation;
 	this.transmitting = transmitting;
 	this.name = name;
+
+
+	var controlsDiv = select("#robotControls");
+
+	//add dom controls
+	var self = this;
+	var transmitButton = createButton("transmit");
+	transmitButton.parent(controlsDiv);
+
+	transmitButton.mousePressed(function(){
+		self.transmitting = !self.transmitting;
+	})
+
+	var rotationSlider = createSlider(0, 360, 0);
+	var rotationUpdate = function(){
+		self.rotation = this.value();
+	}
+	rotationSlider.parent(controlsDiv);
+	rotationSlider.input(rotationUpdate);
+
+	var nameText = createInput("marvin");
+	nameText.parent(controlsDiv);
+	nameText.input(function(){
+		self.name = this.value();
+	})
+
+	var colourSelect = createSelect();
+
+	var colourOptions = ['grey', 'brown', 'red', 'green', 'yellow', 'purple'];
+	for(var i = 0; i < colourOptions.length; i++)
+	{
+		colourSelect.option(colourOptions[i]);
+	}
+
+	colourSelect.input(function(){
+		self.colour = this.value();
+	})
+
+	colourSelect.parent(controlsDiv);
 
 	this.drawRobot = function() {
 		translate(width / 2, height / 2);
