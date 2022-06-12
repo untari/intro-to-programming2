@@ -5,54 +5,12 @@
 //create variable
 var flying_saucer;
 
+
 function setup()
 {
     createCanvas(800,600);
     noStroke();
 
-    //defined var values
-    flying_saucer = {
-        x: 400,
-        y: 150,
-        width:250,
-        height: 75,
-        window_width: 0.5,
-        window_height: 1.2,
-        base_height: 0.45,
-        num_lights: 20,
-        brightnesses: [],
-
-        //hover function
-        hover: function()
-        {
-            //console.log("hover");
-            this.x += random(-2,2);
-            this.y += random(-1,1);
-        },
-
-        //bean
-        bean: function()
-        {
-            fill(255,255,100,150);
-
-            if(random() > 0.1)
-            {
-
-                beginShape();
-                vertex(this.x - this.width * 0.25,this.y);
-                vertex(this.x + this.width * 0.25,this.y);
-                vertex(this.x + this.width * 0.25, height - 100);
-                vertex(this.x - this.width * 0.35, height - 100);
-                endShape(CLOSE);
-            }
-            
-        }
-    }
-
-    //for loop for the brigtnesses
-    for (var i = 0; i < flying_saucer.num_lights; i++){
-        flying_saucer.brightnesses.push((i * 5)%255);
-    }
 }
 
 function draw()
@@ -64,7 +22,10 @@ function draw()
     rect(0,height - 100, width, 100);
     
     //draw bean
-    flying_saucer.bean();
+    if(flying_saucer.bean_on == true)
+    {
+        flying_saucer.bean();
+    }
 
     //draw the flying saucerr
     fill(175,238,238);
@@ -92,6 +53,62 @@ function draw()
         
         flying_saucer.brightnesses[i] += 1;
         flying_saucer.brightnesses[i] = flying_saucer.brightnesses[i]%255;
+    }
+} 
+
+function keyPressed(){
+    flying_saucer.bean_on = true;
+}
+
+function keyReleased(){
+    flying_saucer.bean_on = false; 
+}
+
+//defined var values
+function FlyingSaucer(){
+    this.x = 200;
+    this.y = 100;
+    this.width = 250;
+    this.height = 75;
+    this.window_width = 0.5;
+    this.window_height = 1.2;
+    this.base_height = 0.45;
+    this.num_lights =20;
+    this.brightnesses = [];
+    this.bean_on = false;
+
+    //bean
+    this.bean = function()
+    {
+        fill(255,255,100,150);
+
+        if(random() > 0.1)
+        {
+
+            beginShape();
+            vertex(this.x - this.y + this.base_height * 0.5);
+            vertex(this.x + 25, this.y + this.height * this.base_height * 0.5);
+            vertex(this.x + 70, height - 100);
+            vertex(this.x - 70, height - 100);
+            endShape(CLOSE);
+        }
+    },
+
+    //hover function
+    this.hover = function()
+    {
+        //console.log("hover");
+        this.x += random(-2,2);
+        this.y += random(-1,1);
+    }
+
+    this.draw = function(){
+
+    }
+
+    //for loop for the brigtnesses
+    for (var i = 0; i < this.num_lights; i++){
+        this.brightnesses.push((i * 5)%255);
     }
 
 }
