@@ -13,6 +13,7 @@ https://freesound.org/
 var sample;
 var isReady;
 var amplitude;
+var fft;
 
 function preload()
 {
@@ -40,6 +41,7 @@ function setup()
     textSize(32);
     
     amplitude = new p5.Amplitude();
+    fft = new p5.FFT();
 
 }
 
@@ -59,7 +61,27 @@ function draw()
         
         ellipse(width/2, height/2, d);
         
-        
+        var freqs = fft.analyze();
+        console.log(freqs);
+
+        stroke(50,250,50)
+        for(var i = 0; i < freqs.length; i++)
+        {
+            line(i, height, i, height - freqs[i] * 2);
+        }
+
+        var energy = fft.getEnergy('bass');
+
+
+        noStroke();
+        fill(255, 0, 0);
+        ellipse(width/4, height/2, 50 + energy);
+
+        var high_energy = fft.getEnergy('highMid');
+
+        noStroke();
+        fill( 0, 0, 255);
+        ellipse(width*3/4, height/2, 50 + high_energy);
     }
 }
 
