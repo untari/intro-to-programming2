@@ -12,6 +12,11 @@ function ControlsAndInput(){
 		//???
 		//check if the playback button has been clicked
 		//if not make the visualisation fullscreen
+		if(!this.playbackButton.hitCheck())
+		{
+			let fs = fullscreen();
+			fullscreen(!fs);
+		}
 	};
 
 	//responds to keyboard presses
@@ -21,7 +26,6 @@ function ControlsAndInput(){
 		if(keycode == 32){
 			this.menuDisplayed = !this.menuDisplayed;
 		}
-
 		if(keycode > 48 && keycode < 58){
 			var visNumber = keycode - 49;
 			vis.selectVisual(vis.visuals[visNumber].name); 
@@ -50,7 +54,8 @@ function ControlsAndInput(){
 
 	this.menu = function(){
 		//draw out menu items for each visualisation
-		//???
+		for(var i = 0; 1 < vis.visuals.length; i++)
+		text(i+1 + ":" + vis.visuals[i].name, 100, 70+40*i);
 	};
 }
 
